@@ -21,7 +21,7 @@ const optionsDefault: OptionsInput = {
 };
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Congratulations, your extension "sort-imports" is now active!');
+  const options = vscode.workspace.getConfiguration(NAME_EXTENSION);
   let disposable = vscode.commands.registerCommand(
     `${NAME_EXTENSION}.sortImports`,
     async () => {
@@ -31,6 +31,14 @@ export function activate(context: vscode.ExtensionContext) {
 
       const mergeOptions = {
         ...formatOptions(optionsDefault),
+        ...formatOptions({
+          importOrder: options.get("importOrder"),
+          importOrderSeparation: options.get("importOrderSeparation"),
+          importOrderSortByLength: options.get("importOrderSortByLength"),
+          importOrderSplitType: options.get("importOrderSplitType"),
+          importWithSemicolon: options.get("importWithSemicolon"),
+          importOrderAddComments: options.get("importOrderAddComments"),
+        } as OptionsInput),
       } as Options;
       const code = editor.document.getText();
 

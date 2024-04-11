@@ -1,6 +1,7 @@
+//RELATIVE MODULES
 import { Options } from "../types/common.type";
-import { ImportDeclaration } from "../types/babel.type";
 import { classifyImport } from "./classify-import";
+import { ImportDeclaration } from "../types/babel.type";
 import { getImportOrder } from "./handle-import-order-default";
 import { convertNodesToString } from "./convert-nodes-to-string";
 

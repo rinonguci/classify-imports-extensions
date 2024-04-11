@@ -1,5 +1,6 @@
-import { ImportDeclaration } from "../types/babel.type";
+//RELATIVE MODULES
 import { Options } from "../types/common.type";
+import { ImportDeclaration } from "../types/babel.type";
 import { codeWithoutComment } from "./code-without-comment";
 
 const importTypes = {

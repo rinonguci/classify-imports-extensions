@@ -1,4 +1,7 @@
+//THIRD PARTY MODULES
 import generator from "babel-generator";
+
+//RELATIVE MODULES
 import { ImportDeclaration } from "../types/babel.type";
 
 export const convertNodesToString = (arr: ImportDeclaration[]) => {

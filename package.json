@@ -1,13 +1,15 @@
 {
   "name": "classify-imports-extensions",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "displayName": "Classify Imports",
+  "publisher": "phatphamminh",
   "description": "VScode extensions to classify imports into external, internal, and unknown categories.",
   "author": "rinonguci",
   "repository": {
     "type": "git",
     "url": "https://github.com/rinonguci/classify-imports-extensions.git"
   },
+  "icon": "icon.png",
   "license": "MIT",
   "keywords": [
     "VSCode",
@@ -27,61 +29,54 @@
   "contributes": {
     "commands": [
       {
-        "command": "classify-imports-extensions.sortImports",
+        "command": "classify-imports.sortImports",
         "title": "Classify Imports: Sort Imports"
       }
     ],
     "configuration": {
-      "optionsDefault": {
-        "type": "object",
-        "properties": {
-          "importOrder": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "importOrderSeparation": {
-            "type": "boolean"
-          },
-          "importOrderSortByLength": {
-            "type": "boolean"
-          },
-          "importOrderSplitType": {
-            "type": "boolean"
-          },
-          "importWithSemicolon": {
-            "type": "boolean"
-          },
-          "importOrderAddComments": {
-            "type": "boolean"
-          },
-          "additionalOption1": {
-            "type": "boolean",
-            "default": true,
-            "description": "Description of additional option 1"
-          },
-          "additionalOption2": {
-            "type": "string",
-            "default": "default value",
-            "description": "Description of additional option 2"
-          }
-        },
-        "default": {
-          "importOrder": [
+      "type": "object",
+      "title": "Classify Imports",
+      "properties": {
+        "classify-imports.importOrder": {
+          "type": "array",
+          "title": "Import Order",
+          "description": "Sort imports by external, internal, and unknown categories.",
+          "default": [
             "<THIRD_PARTY_MODULES> --comment THIRD PARTY MODULES",
             "<RELATIVE_MODULES> --comment RELATIVE MODULES",
             "<TYPES_MODULES> --comment TYPES MODULES"
-          ],
-          "importOrderSeparation": true,
-          "importOrderSortByLength": true,
-          "importOrderSplitType": true,
-          "importWithSemicolon": true,
-          "importOrderAddComments": true,
-          "additionalOption1": true,
-          "additionalOption2": "default value"
+          ]
         },
-        "description": "Default options for the extension"
+        "classify-imports.importOrderSeparation": {
+          "type": "boolean",
+          "title": "Import Order Separation",
+          "description": "Separate imports by category.",
+          "default": true
+        },
+        "classify-imports.importOrderSortByLength": {
+          "type": "boolean",
+          "title": "Import Order Sort By Length",
+          "description": "Sort imports within each category by length.",
+          "default": true
+        },
+        "classify-imports.importOrderSplitType": {
+          "type": "boolean",
+          "title": "Import Order Split Type",
+          "description": "Split imports into separate sections based on type.",
+          "default": true
+        },
+        "classify-imports.importWithSemicolon": {
+          "type": "boolean",
+          "title": "Import With Semicolon",
+          "description": "Add semicolon at the end of each import statement.",
+          "default": false
+        },
+        "classify-imports.importOrderAddComments": {
+          "type": "boolean",
+          "title": "Import Order Add Comments",
+          "description": "Add comments to indicate import categories.",
+          "default": false
+        }
       }
     }
   },

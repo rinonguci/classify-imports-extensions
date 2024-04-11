@@ -1,6 +1,7 @@
+//RELATIVE MODULES
 import { DEFAULT_IMPORT, DEFAULT_IMPORT_WITH_COMMENT } from "../constant";
 
-type Module = typeof DEFAULT_IMPORT[number];
+type Module = (typeof DEFAULT_IMPORT)[number];
 const insertModule = (
   insertedModule: Module | "<ARRAY_REGEX_MODULES>",
   imports: string[],

@@ -7,7 +7,6 @@
   "singleQuote": false,
   "jsxSingleQuote": false,
   "quoteProps": "as-needed",
-  "trailingComma": "all",
   "singleAttributePerLine": false,
   "htmlWhitespaceSensitivity": "css",
   "vueIndentScriptAndStyle": false,

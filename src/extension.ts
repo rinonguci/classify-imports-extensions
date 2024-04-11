@@ -1,8 +1,11 @@
+//THIRD PARTY MODULES
 import * as vscode from "vscode";
 
-import { Options, OptionsInput } from "./types/common.type";
+//RELATIVE MODULES
 import { formatOptions } from "./common/format-options";
 import { sortImportPlugin } from "./sort-import-plugin";
+import { Options, OptionsInput } from "./types/common.type";
+import getStartLineHandler from "./common/get-start-line-handler";
 
 const NAME_EXTENSION = "classify-imports";
 
@@ -16,8 +19,8 @@ const optionsDefault: OptionsInput = {
   importOrderSeparation: true,
   importOrderSortByLength: true,
   importOrderSplitType: true,
-  importWithSemicolon: true,
-  importOrderAddComments: true,
+  importWithSemicolon: false,
+  importOrderAddComments: false,
 };
 
 export function activate(context: vscode.ExtensionContext) {
@@ -28,7 +31,6 @@ export function activate(context: vscode.ExtensionContext) {
       const editor = vscode.window.activeTextEditor;
 
       if (!editor) return;
-
       const mergeOptions = {
         ...formatOptions(optionsDefault),
         ...formatOptions({
@@ -40,11 +42,20 @@ export function activate(context: vscode.ExtensionContext) {
           importOrderAddComments: options.get("importOrderAddComments"),
         } as OptionsInput),
       } as Options;
-      const code = editor.document.getText();
+      const _code = editor.document.getText();
+
+      const comments = mergeOptions.importOrder
+        .map((value) => value?.[1])
+        .filter(Boolean);
+      let code = _code;
+
+      comments.forEach((item) => {
+        code = code.replace(new RegExp(`//${item}`, "g"), "");
+      });
 
       const { allImportWithMessage, loc, newCode } = sortImportPlugin(
         code,
-        mergeOptions,
+        mergeOptions
       );
 
       let flag = false;
@@ -53,20 +64,22 @@ export function activate(context: vscode.ExtensionContext) {
         flag = true;
       });
 
+      let startLine = getStartLineHandler(loc, code);
+
       if (flag) {
         editor.edit((editBuilder) => {
           editBuilder.replace(
             new vscode.Range(
-              new vscode.Position(loc.start.line - 1, loc.start.column),
-              new vscode.Position(loc.end.line - 1, loc.end.column),
+              new vscode.Position(startLine, loc.start.column),
+              new vscode.Position(loc.end.line - 1, loc.end.column)
             ),
-            newCode,
+            newCode
           );
         });
 
         vscode.window.showInformationMessage("Imports sorted successfully!");
       }
-    },
+    }
   );
 
   context.subscriptions.push(disposable);

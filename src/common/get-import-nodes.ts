@@ -1,3 +1,4 @@
+//RELATIVE MODULES
 import { Ast, ImportDeclaration } from "../types/babel.type";
 
 export const getImportNodes = (ast: Ast) => {

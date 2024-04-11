@@ -1,5 +1,7 @@
+//THIRD PARTY MODULES
 import { Comment } from "@babel/types";
 
+//RELATIVE MODULES
 import { Options } from "./types/common.type";
 import { getImportNodes } from "./common/get-import-nodes";
 import { parseCodeToAst } from "./common/parse-code-to-ast";
@@ -15,6 +17,7 @@ import {
 type ImportOrComment = ImportDeclaration | Comment | CommentBlock | CommentLine;
 
 export const sortImportPlugin = (code: string, options: Options) => {
+  console.log("🚀 ~ sortImportPlugin ~ code:", code);
   const formatComments = (
     allImports: ImportDeclaration[],
     commentsCustom: string[]
@@ -92,6 +95,7 @@ export const sortImportPlugin = (code: string, options: Options) => {
   const lastImportLoc = lastImport.loc as unknown as Loc;
 
   const newAllImports = formatComments(allImports, commentsCustom);
+
   const newCode = classifyImportToCode(newAllImports, options).replace(
     /[\n]*$/,
     ""
